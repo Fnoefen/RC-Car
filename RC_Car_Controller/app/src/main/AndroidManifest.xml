@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rc_car_controller">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RC_Car_Controller">
+        <activity
+            android:name=".Connect"
+            android:exported="false" />
+        <activity
+            android:name=".Controller"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
