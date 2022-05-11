@@ -22,11 +22,14 @@ class Connect : AppCompatActivity() {
 
     companion object {
         val EXTRA_ADRESS: String = "Device_address"
+        val EXTRA_NAME: String = "Device_name" // might not need - for show device name
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect)
+
+        supportActionBar?.title = getString(R.string.connect)
 
         m_bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (m_bluetoothAdapter == null){
@@ -48,7 +51,7 @@ class Connect : AppCompatActivity() {
             pairedDeviceList()
 
         }
-
+        pairedDeviceList()
     }
 
     private fun pairedDeviceList() {
@@ -70,20 +73,30 @@ class Connect : AppCompatActivity() {
             Toast.makeText(applicationContext, "No paired Bluetooth devices found", Toast.LENGTH_SHORT).show()
         }
 
-        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,list)
+//        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,list)
+
+        val listNames: ArrayList<String> = ArrayList()
+                        //for device name
+                        for(device: BluetoothDevice in list){
+                            listNames.add(device.name)
+                        }
+                        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,listNames)
+
         val selectDeviceList: ListView = findViewById(R.id.SelectDeviceList)
         selectDeviceList.adapter = adapter
         selectDeviceList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val device: BluetoothDevice = list[position]
             val address: String = device.address
+//            val bname: String = device.name
 
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(EXTRA_ADRESS, address)
+//            intent.putExtra(EXTRA_NAME, bname) //for device name
             startActivity(intent)
         }
 
     }
-
+//  Toast logic - prompts
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_ENABLE_BLUETOOTH){

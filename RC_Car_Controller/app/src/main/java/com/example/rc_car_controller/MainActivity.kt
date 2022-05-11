@@ -11,12 +11,14 @@ class MainActivity : AppCompatActivity() {
      private lateinit var controllerBtn : Button
      private lateinit var connectBtn : Button
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         controllerBtn = findViewById(R.id.ControllerBtn)
         connectBtn = findViewById(R.id.ConnectBtn)
+
 
         controllerBtn.setOnClickListener {
             val intent = Intent(this, Controller::class.java)

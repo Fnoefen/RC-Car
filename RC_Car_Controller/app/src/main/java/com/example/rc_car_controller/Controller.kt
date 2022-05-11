@@ -17,6 +17,8 @@ class Controller : AppCompatActivity() {
     lateinit var speed : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controller)
 
