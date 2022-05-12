@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Controller">
 
     <TextView
         android:id="@+id/Angel"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="center"
         android:textAlignment="gravity"
         android:layout_marginBottom="90dp"
         android:text="0"
@@ -37,7 +37,7 @@
         android:id="@+id/Speed"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="center"
         android:textAlignment="gravity"
         android:layout_marginTop="90dp"
         android:text="0"
@@ -49,13 +49,14 @@
 
     <SeekBar
         android:id="@+id/SpeedCtrl"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:rotation="-90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Angel"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/AngelCtrl"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
