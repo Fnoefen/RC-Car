@@ -92,6 +92,7 @@ class Controller : AppCompatActivity() {
             speedCtrl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                     speed.text = p1.toString()
+                    mSpeed = p1.toString()
                 }
                 override fun onStartTrackingTouch(p0: SeekBar?) {}
                 override fun onStopTrackingTouch(p0: SeekBar?) {
@@ -116,7 +117,7 @@ class Controller : AppCompatActivity() {
 
         override fun run() {
             try {
-                while(!m_isConnected){
+                while(m_isConnected){
                     if(mSpeed != prevSpeed){
                         sendCommand(mSpeed)
                         prevSpeed = mSpeed
@@ -126,12 +127,14 @@ class Controller : AppCompatActivity() {
                         prevAngel = mAngel
                     }
                 }
-                while(m_isConnected){
+                while(!m_isConnected){
                     if(mSpeed != prevSpeed){
+                        println(mSpeed)
                         sendCommand(mSpeed)
                         prevSpeed = mSpeed
                     }
                     if(mAngel != prevAngel){
+                        println(mAngel)
                         sendCommand(mAngel)
                         prevAngel = mAngel
                     }

@@ -9,19 +9,27 @@
 
     <TextView
         android:id="@+id/selectD"
+        style="@style/Widget.MaterialComponents.TextView"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-
-        android:background="#719590"
+        android:background="@drawable/rounded_corner"
         android:text="@string/selectConnect"
-        android:layout_marginHorizontal="25dp"
+        android:textAllCaps="true"
+        android:textColor="#494949"
+        android:layout_marginHorizontal="20dp"
         android:textStyle="bold"
         android:textAlignment="center"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="17sp"
+        android:layout_marginTop="-5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="10dp"
+        android:padding="10dp"
+        app:drawableRightCompat="@drawable/ic_baseline_bluetooth_24"
+        app:drawableLeftCompat="@drawable/ic_baseline_bluetooth_24" />
+
     <ListView
         android:id="@+id/SelectDeviceList"
         android:layout_width="wrap_content"
@@ -35,13 +43,19 @@
 
     <Button
         android:id="@+id/SelectDeviceRefresh"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/mYellow"
+        android:text="@string/refresh"
+        android:textColor="@color/black"
+        app:icon="@drawable/ic_baseline_replay_24"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="20dp"
-        android:text="@string/refresh"
-        />
+        app:strokeColor="@color/mGreen"
+        app:strokeWidth="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

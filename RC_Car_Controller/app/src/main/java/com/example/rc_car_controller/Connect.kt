@@ -5,6 +5,7 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +30,7 @@ class Connect : AppCompatActivity() {
         setContentView(R.layout.activity_connect)
         //canges top bar name
         supportActionBar?.hide()
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         m_bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (m_bluetoothAdapter == null){
