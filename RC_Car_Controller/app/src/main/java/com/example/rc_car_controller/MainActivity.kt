@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity() {
         controllerBtn.setOnClickListener {
 //            val intent = Intent(this, Controller::class.java)
 //            startActivity(intent)
-            val controller = Controller(this)
-            setContentView(controller)
+
         }
 
         connectBtn.setOnClickListener {
