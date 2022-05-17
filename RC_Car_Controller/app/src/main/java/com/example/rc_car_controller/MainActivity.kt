@@ -21,9 +21,8 @@ class MainActivity : AppCompatActivity() {
 
 
         controllerBtn.setOnClickListener {
-//            val intent = Intent(this, Controller::class.java)
-//            startActivity(intent)
-
+            val intent = Intent(this, Controller::class.java)
+            startActivity(intent)
         }
 
         connectBtn.setOnClickListener {
