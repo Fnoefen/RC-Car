@@ -28,7 +28,7 @@ class Connect : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect)
         //canges top bar name
-        supportActionBar?.title = getString(R.string.connect)
+        supportActionBar?.hide()
 
         m_bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (m_bluetoothAdapter == null){

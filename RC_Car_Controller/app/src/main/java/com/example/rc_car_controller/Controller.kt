@@ -11,6 +11,7 @@ import android.content.res.Configuration
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -27,6 +28,11 @@ class Controller : AppCompatActivity() {
     lateinit var speedCtrl : SeekBar
     lateinit var speed : TextView
 
+    lateinit var testBTN : Button
+
+
+
+
     companion object {
         var m_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
         var m_bluetoothSocket: BluetoothSocket? = null
@@ -34,10 +40,25 @@ class Controller : AppCompatActivity() {
         lateinit var m_bluetoothAdapter: BluetoothAdapter
         var m_isConnected: Boolean = false
         var m_address: String ="some address"
+
+        //  Values to send over bluetooth ---
+        var mSpeed : String = " "
+        var mAngel : String = " "
+        //  -----
+        var testvar :Boolean = false;
+
+        fun sendCommand(input: String){
+            if(m_bluetoothSocket != null){
+                try{
+                    m_bluetoothSocket!!.outputStream.write(input.toByteArray())
+                } catch(e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controller)
@@ -55,6 +76,7 @@ class Controller : AppCompatActivity() {
         angelCtrl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 angel.text = p1.toString()
+                mAngel = p1.toString()
             }
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {
@@ -77,18 +99,52 @@ class Controller : AppCompatActivity() {
                 }
             })
         }
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            testBTN = findViewById<Button>(R.id.TestBTN)
+            testBTN.setOnClickListener { disconnect() }
+
+        }
+
+        val t1 = thread()
+        t1.start()
     }
 
+    //  Thread ------------------------------------------------------------
+    class thread() :Thread() {
+        var prevSpeed : String = " "
+        var prevAngel : String = " "
 
-    private fun sendCommand(input: String){
-        if(m_bluetoothSocket != null){
-            try{
-                m_bluetoothSocket!!.outputStream.write(input.toByteArray())
-            } catch(e: IOException) {
-                e.printStackTrace()
+        override fun run() {
+            try {
+                while(!m_isConnected){
+                    if(mSpeed != prevSpeed){
+                        sendCommand(mSpeed)
+                        prevSpeed = mSpeed
+                    }
+                    if(mAngel != prevAngel){
+                        sendCommand(mAngel)
+                        prevAngel = mAngel
+                    }
+                }
+                while(m_isConnected){
+                    if(mSpeed != prevSpeed){
+                        sendCommand(mSpeed)
+                        prevSpeed = mSpeed
+                    }
+                    if(mAngel != prevAngel){
+                        sendCommand(mAngel)
+                        prevAngel = mAngel
+                    }
+                }
+            }catch (ex:Exception){
+                print(ex.message)
             }
         }
+
+
+
     }
+
     private fun disconnect(){
         if (m_bluetoothSocket != null) {
             try {
@@ -101,6 +157,7 @@ class Controller : AppCompatActivity() {
         }
         finish()
     }
+
 
 
 
