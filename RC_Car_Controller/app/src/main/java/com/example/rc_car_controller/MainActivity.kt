@@ -4,14 +4,15 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 
 
 class MainActivity : AppCompatActivity() {
 
      private lateinit var controllerBtn : Button
      private lateinit var connectBtn : Button
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity() {
 
         controllerBtn = findViewById(R.id.ControllerBtn)
         connectBtn = findViewById(R.id.ConnectBtn)
+
+        var iconImg : ImageView = findViewById(R.id.IconImg)
+        Glide.with(this).load("https://i.imgur.com/jC4ec16.png").into(iconImg)
 
 
         controllerBtn.setOnClickListener {
