@@ -11,7 +11,6 @@ import android.content.res.Configuration
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -22,7 +21,6 @@ import java.io.IOException
 import java.util.*
 
 
-
 class Controller : AppCompatActivity(), JoystickView.JoystickListener {
 
     lateinit var angelCtrl: SeekBar
@@ -31,35 +29,7 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
     lateinit var speedCtrl: SeekBar
     lateinit var speed: TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_controller)
-
-        // Landscape controller
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            angelCtrl = findViewById<SeekBar>(R.id.AngelCtrl)
-            angel = findViewById<TextView>(R.id.Angel)
-
-            angelCtrl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                    angel.text = p1.toString()
-                }
-
-                override fun onStartTrackingTouch(p0: SeekBar?) {}
-                override fun onStopTrackingTouch(p0: SeekBar?) {
-                    angelCtrl.progress = 0
-                }
-            })
-
-    lateinit var angelCtrl: SeekBar
-    lateinit var angel: TextView
-
-    lateinit var speedCtrl: SeekBar
-    lateinit var speed: TextView
-
-    lateinit var testBTN: Button
-
-    lateinit var discornect : FloatingActionButton
+    lateinit var discornect: FloatingActionButton
 
 
     companion object {
@@ -99,6 +69,7 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
         } else {
             ConnectToDevice(this).execute()
         }
+
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             angelCtrl = findViewById<SeekBar>(R.id.AngelCtrl)
             angel = findViewById<TextView>(R.id.angel2)
@@ -117,8 +88,6 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
 
             })
 
-
-
             speedCtrl = findViewById<SeekBar>(R.id.SpeedCtrl)
             speed = findViewById<TextView>(R.id.speed2)
             speedCtrl.thumb.mutate().alpha = 0;
@@ -134,44 +103,34 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
                     speedCtrl.progress = 0
                 }
             })
-
-
+            discornect = findViewById<FloatingActionButton>(R.id.disconnect)
+            discornect.setOnClickListener {
+                if (m_isConnected) {
+                    disconnect()
+                } else {
+                    Toast.makeText(applicationContext, "You are not connected to any device", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
+        val t1 = thread()
+        t1.start()
     }
 
     override fun onJoystickMoved(xPercent: Float, yPercent: Float, id: Int) {
-        when(id){
-            R.id.joystickViewUp ->{
+        when (id) {
+            R.id.joystickViewUp -> {
                 Log.d("Right joystick", "X percent: " + xPercent + "Y percent: " + yPercent)
                 angel = findViewById<TextView>(R.id.angle)
                 speed = findViewById<TextView>(R.id.speed)
                 angel.text = yPercent.toString()
                 speed.text = xPercent.toString()
             }
-            R.id.joystickView3 ->{
+            R.id.joystickView3 -> {
                 Log.d("Left joystick", "X percent: " + xPercent + "Y percent: " + yPercent)
             }
         }
-
-            discornect = findViewById<FloatingActionButton>(R.id.disconnect)
-            discornect.setOnClickListener{
-                if(m_isConnected){
-                    disconnect()
-                }else {
-                    Toast.makeText(applicationContext, "You are not connected to any device", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-        }
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            testBTN = findViewById<Button>(R.id.TestBTN)
-            testBTN.setOnClickListener { disconnect() }
-
-        }
-
-        val t1 = thread()
-        t1.start()
     }
+
 
     //  Thread ------------------------------------------------------------
     class thread() : Thread() {
