@@ -123,14 +123,16 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
                 Log.d("Right joystick", "X percent: " + xPercent + "Y percent: " + yPercent)
                 angel = findViewById<TextView>(R.id.angel)
                 speed = findViewById<TextView>(R.id.speed)
-                val speedVal: Int = (sqrt(yPercent.pow(2) + xPercent.pow(2)) * 100).toInt()
+                var speedVal: Int = (sqrt(yPercent.pow(2) + xPercent.pow(2)) * 100).toInt()
+                if (yPercent > 0)
+                    speedVal = -abs(speedVal)
                 var angelVal: Int = 0
-                if(xPercent > 0 && xPercent != 0F)
-                    angelVal = 90 - ((atan(abs(yPercent)/xPercent) * 180) / PI).roundToInt()
+                angelVal = if(xPercent > 0 && xPercent != 0F)
+                    90 - ((atan(abs(yPercent)/xPercent) * 180) / PI).roundToInt()
                 else if (xPercent != 0F)
-                    angelVal = ((atan(abs(yPercent)/abs(xPercent)) * 180) / PI).roundToInt() - 90
+                    ((atan(abs(yPercent)/abs(xPercent)) * 180) / PI).roundToInt() - 90
                 else
-                    angelVal = 0
+                    0
                 angel.text = getString(R.string.angel) + angelVal
                 speed.text = getString(R.string.speed) + speedVal
             }
