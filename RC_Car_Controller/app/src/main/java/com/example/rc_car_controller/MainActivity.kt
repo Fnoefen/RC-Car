@@ -1,6 +1,7 @@
 package com.example.rc_car_controller
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +14,10 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         controllerBtn = findViewById(R.id.ControllerBtn)
         connectBtn = findViewById(R.id.ConnectBtn)
@@ -29,6 +32,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Connect::class.java)
             startActivity(intent)
         }
-
     }
 }
