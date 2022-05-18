@@ -4,38 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffe28a"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/ConnectBtn"
-        android:layout_width="150dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="157dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:backgroundTint="@color/mYellow"
         android:text="@string/connect"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@color/mGray"
+        android:gravity="left|center"
+        app:icon="@drawable/ic_baseline_link_24"
+        app:iconGravity="start"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/mGreen"
+        app:strokeWidth="1dp" />
 
     <Button
         android:id="@+id/ControllerBtn"
-        android:layout_width="150dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="157dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/mYellow"
         android:text="@string/controller"
+        android:textColor="@color/mGray"
+        android:gravity="left|center"
+        app:icon="@drawable/ic_baseline_play_arrow_24"
+        app:iconGravity="start"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ConnectBtn"
-        app:layout_constraintVertical_bias="0.061" />
+        app:layout_constraintTop_toBottomOf="@+id/ConnectBtn"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="@color/mGreen"
+        app:strokeWidth="1dp" />
 
     <ImageView
         android:id="@+id/IconImg"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/ConnectBtn"
+        android:layout_marginTop="50dp"
+        android:alpha="0.75"
+        app:layout_constraintBottom_toTopOf="@+id/ConnectBtn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/joystickb" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

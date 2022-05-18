@@ -5,6 +5,7 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -21,15 +22,15 @@ class Connect : AppCompatActivity() {
     private lateinit var testbutton : Button
 
     companion object {
-        val EXTRA_ADRESS: String = "Device_address"
-        val EXTRA_NAME: String = "Device_name" // might not need - for show device name
+        var EXTRA_ADRESS: String = "Device_address"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect)
-
-        supportActionBar?.title = getString(R.string.connect)
+        //canges top bar name
+        supportActionBar?.hide()
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         m_bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (m_bluetoothAdapter == null){
@@ -49,7 +50,6 @@ class Connect : AppCompatActivity() {
         val refbutton: Button = findViewById(R.id.SelectDeviceRefresh)
         refbutton.setOnClickListener {
             pairedDeviceList()
-
         }
         pairedDeviceList()
     }
@@ -76,6 +76,7 @@ class Connect : AppCompatActivity() {
 //        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,list)
 
         val listNames: ArrayList<String> = ArrayList()
+
                         //for device name
                         for(device: BluetoothDevice in list){
                             listNames.add(device.name)
@@ -87,11 +88,10 @@ class Connect : AppCompatActivity() {
         selectDeviceList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val device: BluetoothDevice = list[position]
             val address: String = device.address
-//            val bname: String = device.name
+            EXTRA_ADRESS = address
 
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(EXTRA_ADRESS, address)
-//            intent.putExtra(EXTRA_NAME, bname) //for device name
+            //intent.putExtra(EXTRA_ADRESS, address)
             startActivity(intent)
         }
 
