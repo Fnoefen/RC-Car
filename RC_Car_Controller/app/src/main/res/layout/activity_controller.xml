@@ -9,53 +9,43 @@
 
 
     <com.example.rc_car_controller.JoystickView
-        android:id="@+id/joystickView3"
-        android:layout_width="120dp"
-        android:layout_height="103dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="184dp"
-        android:layout_marginBottom="196dp"
-        app:layout_constraintBottom_toTopOf="@+id/joystickViewUp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.405"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.example.rc_car_controller.JoystickView
-        android:id="@+id/joystickViewUp"
-        android:layout_width="130dp"
-        android:layout_height="101dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="197dp"
-        android:layout_marginEnd="184dp"
-        android:layout_marginBottom="196dp"
+        android:id="@+id/joystickView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/joystickView3" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
 
     <TextView
         android:id="@+id/speed"
-        android:layout_width="wrap_content"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
-        android:text="Morten"
-        android:textColor="@color/black"
+        android:elevation="20dp"
+        android:text="@string/speed"
+        android:textColor="@color/mGreen"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/angel"
+        app:layout_constraintHorizontal_bias="0.264"
+        app:layout_constraintLeft_toLeftOf="@id/textBox"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.337" />
 
     <TextView
-        android:id="@+id/angle"
+        android:id="@+id/angel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/speed"
+        android:layout_marginEnd="64dp"
+        android:elevation="20dp"
+        android:text="@string/angel"
+        android:textColor="@color/mGreen"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.337" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.IOException
 import java.util.*
+import kotlin.math.*
 
 
 class Controller : AppCompatActivity(), JoystickView.JoystickListener {
@@ -118,15 +119,19 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
 
     override fun onJoystickMoved(xPercent: Float, yPercent: Float, id: Int) {
         when (id) {
-            R.id.joystickViewUp -> {
+            R.id.joystickView -> {
                 Log.d("Right joystick", "X percent: " + xPercent + "Y percent: " + yPercent)
-                angel = findViewById<TextView>(R.id.angle)
+                angel = findViewById<TextView>(R.id.angel)
                 speed = findViewById<TextView>(R.id.speed)
-                angel.text = yPercent.toString()
-                speed.text = xPercent.toString()
-            }
-            R.id.joystickView3 -> {
-                Log.d("Left joystick", "X percent: " + xPercent + "Y percent: " + yPercent)
+                val speedVal: Int = (sqrt(yPercent.pow(2) + xPercent.pow(2)) * 100).toInt()
+                var angelVal: Int = 0
+                if(xPercent > 0)
+                    angelVal = 90 - ((atan(abs(yPercent)/xPercent) * 180) / PI).roundToInt()
+                else
+                    angelVal = ((atan(abs(yPercent)/abs(xPercent)) * 180) / PI).roundToInt() - 90
+
+                angel.text = getString(R.string.angel) + angelVal
+                speed.text = getString(R.string.speed) + speedVal
             }
         }
     }
