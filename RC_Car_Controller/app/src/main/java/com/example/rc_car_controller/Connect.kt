@@ -81,7 +81,7 @@ class Connect : AppCompatActivity() {
                         for(device: BluetoothDevice in list){
                             listNames.add(device.name)
                         }
-                        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,listNames)
+                        val adapter = ArrayAdapter(this,R.layout.listview_item,listNames)
 
         val selectDeviceList: ListView = findViewById(R.id.SelectDeviceList)
         selectDeviceList.adapter = adapter
