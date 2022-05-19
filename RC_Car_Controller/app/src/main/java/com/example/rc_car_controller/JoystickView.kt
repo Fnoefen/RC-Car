@@ -56,16 +56,17 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
             val sin: Float = (newY - centerY) / hypotnuse
             val cos: Float = (newX - centerX) / hypotnuse
 
-            colors.setARGB(255, 100, 100, 100)
+            colors.setARGB(255, 161,154,132)
+//            colors.setARGB(255, 50,50,50)
             myCanvas.drawCircle(centerX, centerY, baseRadius, colors)
             for (i in 1..((baseRadius / ratio).toInt())) {
-                colors.setARGB(150/i, 255, 255, 255)
+                colors.setARGB(255+i, 255,248,226)
                 myCanvas.drawCircle(newX - cos * hypotnuse * (ratio/baseRadius) * i,newY - sin * hypotnuse * (ratio/baseRadius) * i, i * (hatRadius * ratio / baseRadius), colors)
             }
 
             for (i in 1..((hatRadius / ratio).toInt())) {
                 colors.setARGB(255, 255,
-                    (i * (255 * ratio / hatRadius)).toInt(), (i * (255 * ratio / hatRadius)).toInt())
+                    (i * (116 * ratio / hatRadius)).toInt(), (i * (94 * ratio / hatRadius)).toInt())
                 myCanvas.drawCircle(newX, newY, hatRadius - i * ratio / 2, colors)
             }
 

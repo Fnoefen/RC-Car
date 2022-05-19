@@ -24,8 +24,8 @@ import kotlin.math.*
 
 class Controller : AppCompatActivity(), JoystickView.JoystickListener {
 
-    lateinit var angelCtrl: SeekBar
-    lateinit var angel: TextView
+    lateinit var angleCtrl: SeekBar
+    lateinit var angle: TextView
 
     lateinit var speedCtrl: SeekBar
     lateinit var speed: TextView
@@ -43,7 +43,7 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
 
         //  Values to send over bluetooth ---
         var mSpeed: String = " "
-        var mAngel: String = " "
+        var mAngle: String = " "
 
         //  -----
         var testvar: Boolean = false;
@@ -72,25 +72,25 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
         }
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            angelCtrl = findViewById<SeekBar>(R.id.AngelCtrl)
-            angel = findViewById<TextView>(R.id.angel2)
-            angelCtrl.thumb.mutate().alpha = 0;
+            angleCtrl = findViewById<SeekBar>(R.id.AngelCtrl)
+            angle = findViewById<TextView>(R.id.angleLandscape)
+            angleCtrl.thumb.mutate().alpha = 0;
 
-            angelCtrl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            angleCtrl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                    angel.text = getString(R.string.speed) + " $p1"
-                    mAngel = p1.toString()
+                    angle.text = getString(R.string.angle) + " $p1"
+                    mAngle = p1.toString()
                 }
 
                 override fun onStartTrackingTouch(p0: SeekBar?) {}
                 override fun onStopTrackingTouch(p0: SeekBar?) {
-                    angelCtrl.progress = 0
+                    angleCtrl.progress = 0
                 }
 
             })
 
             speedCtrl = findViewById<SeekBar>(R.id.SpeedCtrl)
-            speed = findViewById<TextView>(R.id.speed2)
+            speed = findViewById<TextView>(R.id.speedLandscape)
             speedCtrl.thumb.mutate().alpha = 0;
 
             speedCtrl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -104,13 +104,13 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
                     speedCtrl.progress = 0
                 }
             })
-            discornect = findViewById<FloatingActionButton>(R.id.disconnect)
-            discornect.setOnClickListener {
-                if (m_isConnected) {
-                    disconnect()
-                } else {
-                    Toast.makeText(applicationContext, "You are not connected to any device", Toast.LENGTH_SHORT).show()
-                }
+        }
+        discornect = findViewById<FloatingActionButton>(R.id.disconnect)
+        discornect.setOnClickListener {
+            if (m_isConnected) {
+                disconnect()
+            } else {
+                Toast.makeText(applicationContext, "You are not connected to any device", Toast.LENGTH_SHORT).show()
             }
         }
         val t1 = thread()
@@ -121,20 +121,22 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
         when (id) {
             R.id.joystickView -> {
                 Log.d("Right joystick", "X percent: " + xPercent + "Y percent: " + yPercent)
-                angel = findViewById<TextView>(R.id.angel)
+                angle = findViewById<TextView>(R.id.angle)
                 speed = findViewById<TextView>(R.id.speed)
                 var speedVal: Int = (sqrt(yPercent.pow(2) + xPercent.pow(2)) * 100).toInt()
                 if (yPercent > 0)
                     speedVal = -abs(speedVal)
-                var angelVal: Int = 0
-                angelVal = if(xPercent > 0 && xPercent != 0F)
+                var angleVal: Int = 0
+                angleVal = if(xPercent > 0 && xPercent != 0F)
                     90 - ((atan(abs(yPercent)/xPercent) * 180) / PI).roundToInt()
                 else if (xPercent != 0F)
                     ((atan(abs(yPercent)/abs(xPercent)) * 180) / PI).roundToInt() - 90
                 else
                     0
-                angel.text = getString(R.string.angel) + angelVal
-                speed.text = getString(R.string.speed) + speedVal
+                angle.text = getString(R.string.angle) + " " + angleVal
+                speed.text = getString(R.string.speed) + " " + speedVal
+                mSpeed = speedVal.toString()
+                mAngle = angleVal.toString()
             }
         }
     }
@@ -143,7 +145,7 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
     //  Thread ------------------------------------------------------------
     class thread() : Thread() {
         var prevSpeed: String = " "
-        var prevAngel: String = " "
+        var prevAngle: String = " "
 
         override fun run() {
             try {
@@ -152,9 +154,9 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
                         sendCommand(mSpeed)
                         prevSpeed = mSpeed
                     }
-                    if (mAngel != prevAngel) {
-                        sendCommand(mAngel)
-                        prevAngel = mAngel
+                    if (mAngle != prevAngle) {
+                        sendCommand(mAngle)
+                        prevAngle = mAngle
                     }
                 }
                 while (!m_isConnected) {
@@ -163,10 +165,10 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
                         sendCommand(mSpeed)
                         prevSpeed = mSpeed
                     }
-                    if (mAngel != prevAngel) {
-                        println(mAngel)
-                        sendCommand(mAngel)
-                        prevAngel = mAngel
+                    if (mAngle != prevAngle) {
+                        println(mAngle)
+                        sendCommand(mAngle)
+                        prevAngle = mAngle
                     }
                 }
             } catch (ex: Exception) {

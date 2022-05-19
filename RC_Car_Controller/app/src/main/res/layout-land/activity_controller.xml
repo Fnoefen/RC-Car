@@ -8,7 +8,7 @@
     tools:context=".Controller">
 
     <TextView
-        android:id="@+id/Angel"
+        android:id="@+id/AngelNull"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="90dp"
@@ -20,7 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Speed" />
+        app:layout_constraintTop_toBottomOf="@id/SpeedNull" />
 
     <SeekBar
         android:id="@+id/AngelCtrl"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/Speed"
+        android:id="@+id/SpeedNull"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
@@ -47,7 +47,7 @@
         android:textAlignment="gravity"
         android:textSize="42sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/Angel"
+        app:layout_constraintBottom_toTopOf="@id/AngelNull"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,7 +63,7 @@
         android:progressDrawable="@android:color/transparent"
         android:rotation="-90"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/Speed"
+        app:layout_constraintLeft_toRightOf="@+id/SpeedNull"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,7 +106,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Speed"
+        app:layout_constraintEnd_toStartOf="@+id/SpeedNull"
         app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/AngelCtrl"
@@ -135,10 +135,10 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/angel2"
+        android:id="@+id/angleLandscape"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
-        android:text="@string/angel"
+        android:text="@string/angle"
         android:textColor="@color/mGreen"
         app:layout_constraintTop_toTopOf="@id/textBox"
         app:layout_constraintBottom_toBottomOf="@id/textBox"
@@ -148,7 +148,7 @@
         />
 
     <TextView
-        android:id="@+id/speed2"
+        android:id="@+id/speedLandscape"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:text="@string/speed"

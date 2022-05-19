@@ -9,7 +9,7 @@
     <string name="selectConnect">Select a device</string>
 
     <string name="speed">Speed: </string>
-    <string name="angel">Angel: </string>
+    <string name="angle">Angle: </string>
 
 
 </resources>
