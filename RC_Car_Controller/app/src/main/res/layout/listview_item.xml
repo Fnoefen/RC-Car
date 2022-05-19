@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="40dp">
 
-    <TextView
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/label"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:padding="10dip"
-        android:textSize="16dip"
-        android:textStyle="bold"
         android:textColor="@color/black"
-        tools:ignore="MissingConstraints" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textSize="16dip"
+        android:textStyle="bold" />
