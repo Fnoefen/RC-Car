@@ -25,7 +25,7 @@ import kotlin.math.*
 class Controller : AppCompatActivity(), JoystickView.JoystickListener {
 
     lateinit var angleCtrl: SeekBar
-    lateinit var angle: TextView
+    private lateinit var angle: TextView
 
     lateinit var speedCtrl: SeekBar
     lateinit var speed: TextView
@@ -45,9 +45,6 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
         var mSpeed: String = " "
         var mAngle: String = " "
 
-        //  -----
-        var testvar: Boolean = false;
-
         fun sendCommand(input: String) {
             if (m_bluetoothSocket != null) {
                 try {
@@ -64,39 +61,37 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controller)
 
+        // checks address has been selected from connect
         m_address = Connect.EXTRA_ADRESS
         if (m_address == "Device_address") {
             Toast.makeText(applicationContext, "No device connected", Toast.LENGTH_SHORT).show()
         } else {
             ConnectToDevice(this).execute()
+            val t1 = thread()
+            t1.start()
         }
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             angleCtrl = findViewById<SeekBar>(R.id.AngelCtrl)
-            angle = findViewById<TextView>(R.id.angleLandscape)
             angleCtrl.thumb.mutate().alpha = 0;
-
             angleCtrl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                    angle.text = getString(R.string.angle) + " $p1"
                     mAngle = p1.toString()
+                    setAngle(mAngle)
                 }
 
                 override fun onStartTrackingTouch(p0: SeekBar?) {}
                 override fun onStopTrackingTouch(p0: SeekBar?) {
                     angleCtrl.progress = 0
                 }
-
             })
 
             speedCtrl = findViewById<SeekBar>(R.id.SpeedCtrl)
-            speed = findViewById<TextView>(R.id.speedLandscape)
             speedCtrl.thumb.mutate().alpha = 0;
-
             speedCtrl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                    speed.text = getString(R.string.speed) + " $p1"
                     mSpeed = p1.toString()
+                    setSpeed(mSpeed)
                 }
 
                 override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -110,35 +105,42 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
             if (m_isConnected) {
                 disconnect()
             } else {
-                Toast.makeText(applicationContext, "You are not connected to any device", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    applicationContext,
+                    "You are not connected to any device",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
-        val t1 = thread()
-        t1.start()
     }
 
     override fun onJoystickMoved(xPercent: Float, yPercent: Float, id: Int) {
-        when (id) {
-            R.id.joystickView -> {
-                Log.d("Right joystick", "X percent: " + xPercent + "Y percent: " + yPercent)
-                angle = findViewById<TextView>(R.id.angle)
-                speed = findViewById<TextView>(R.id.speed)
-                var speedVal: Int = (sqrt(yPercent.pow(2) + xPercent.pow(2)) * 100).toInt()
-                if (yPercent > 0)
-                    speedVal = -abs(speedVal)
-                var angleVal: Int = 0
-                angleVal = if(xPercent > 0 && xPercent != 0F)
-                    90 - ((atan(abs(yPercent)/xPercent) * 180) / PI).roundToInt()
-                else if (xPercent != 0F)
-                    ((atan(abs(yPercent)/abs(xPercent)) * 180) / PI).roundToInt() - 90
-                else
-                    0
-                angle.text = getString(R.string.angle) + " " + angleVal
-                speed.text = getString(R.string.speed) + " " + speedVal
-                mSpeed = speedVal.toString()
-                mAngle = angleVal.toString()
-            }
-        }
+        Log.d("joystick", "X percent: " + xPercent + " Y percent: " + yPercent)
+        var speedVal: Int = (sqrt(yPercent.pow(2) + xPercent.pow(2)) * 100).toInt()
+        if (yPercent > 0)
+            speedVal = -abs(speedVal)
+        var angleVal: Int = 0
+        angleVal = if (xPercent > 0 && xPercent != 0F)
+            90 - ((atan(abs(yPercent) / xPercent) * 180) / PI).roundToInt()
+        else if (xPercent != 0F)
+            ((atan(abs(yPercent) / abs(xPercent)) * 180) / PI).roundToInt() - 90
+        else
+            0
+        mSpeed = speedVal.toString()
+        mAngle = angleVal.toString()
+        setAngle(mAngle)
+        setSpeed(mSpeed)
+    }
+
+
+    private fun setAngle(a: String) {
+        angle = findViewById<TextView>(R.id.angle)
+        angle.text = getString(R.string.angle) + " " + a
+    }
+
+    private fun setSpeed(s: String) {
+        speed = findViewById<TextView>(R.id.speed)
+        speed.text = getString(R.string.speed) + " " + s
     }
 
 
@@ -155,18 +157,6 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
                         prevSpeed = mSpeed
                     }
                     if (mAngle != prevAngle) {
-                        sendCommand(mAngle)
-                        prevAngle = mAngle
-                    }
-                }
-                while (!m_isConnected) {
-                    if (mSpeed != prevSpeed) {
-                        println(mSpeed)
-                        sendCommand(mSpeed)
-                        prevSpeed = mSpeed
-                    }
-                    if (mAngle != prevAngle) {
-                        println(mAngle)
                         sendCommand(mAngle)
                         prevAngle = mAngle
                     }
