@@ -21,6 +21,7 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     private var joystickCallback: JoystickListener? = null
     private val ratio = 1 //The smaller, the more shading will occur
 
+    // Default constructor for the joystick with no added specifications
     constructor(context: Context?) : super(context) {
         holder.addCallback(this)
         setZOrderOnTop(true)
@@ -29,6 +30,7 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
         if (context is JoystickListener) joystickCallback = context
     }
 
+    // Default constructor for the joystick with added attributes and styles
     constructor(context: Context?, attributes: AttributeSet?, style: Int) : super(context, attributes, style) {
         holder.addCallback(this)
         setZOrderOnTop(true)
@@ -37,6 +39,7 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
         if (context is JoystickListener) joystickCallback = context
     }
 
+    // Default constructor for the joystick with added attributes
     constructor(context: Context?, attributes: AttributeSet?) : super(context, attributes) {
         holder.addCallback(this)
         setZOrderOnTop(true)
@@ -52,16 +55,15 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
             val colors = Paint()
             myCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 
-            val hypotnuse: Float = sqrt((newX - centerX).toDouble().pow(2.0) + (newY - centerY).toDouble().pow(2.0)).toFloat()
-            val sin: Float = (newY - centerY) / hypotnuse
-            val cos: Float = (newX - centerX) / hypotnuse
+            val hypotenuse: Float = sqrt((newX - centerX).toDouble().pow(2.0) + (newY - centerY).toDouble().pow(2.0)).toFloat()
+            val sin: Float = (newY - centerY) / hypotenuse
+            val cos: Float = (newX - centerX) / hypotenuse
 
             colors.setARGB(255, 161,154,132)
-//            colors.setARGB(255, 50,50,50)
             myCanvas.drawCircle(centerX, centerY, baseRadius, colors)
             for (i in 1..((baseRadius / ratio).toInt())) {
                 colors.setARGB(255+i, 255,248,226)
-                myCanvas.drawCircle(newX - cos * hypotnuse * (ratio/baseRadius) * i,newY - sin * hypotnuse * (ratio/baseRadius) * i, i * (hatRadius * ratio / baseRadius), colors)
+                myCanvas.drawCircle(newX - cos * hypotenuse * (ratio/baseRadius) * i,newY - sin * hypotenuse * (ratio/baseRadius) * i, i * (hatRadius * ratio / baseRadius), colors)
             }
 
             for (i in 1..((hatRadius / ratio).toInt())) {
