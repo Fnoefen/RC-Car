@@ -56,6 +56,8 @@ class Connect : AppCompatActivity() {
             pairedDeviceList()
         }
         pairedDeviceList()
+
+
     }
 
     private fun pairedDeviceList() {

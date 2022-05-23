@@ -100,18 +100,6 @@ class Controller : AppCompatActivity(), JoystickView.JoystickListener {
                 }
             })
         }
-        discornect = findViewById<FloatingActionButton>(R.id.disconnect)
-        discornect.setOnClickListener {
-            if (m_isConnected) {
-                disconnect()
-            } else {
-                Toast.makeText(
-                    applicationContext,
-                    "You are not connected to any device",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
     }
 
     override fun onJoystickMoved(xPercent: Float, yPercent: Float, id: Int) {
