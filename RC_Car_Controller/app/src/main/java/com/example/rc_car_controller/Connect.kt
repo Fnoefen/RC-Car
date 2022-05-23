@@ -81,7 +81,6 @@ class Connect : AppCompatActivity() {
             ).show()
         }
 
-//        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,list)
 
         val listNames: ArrayList<String> = ArrayList()
 
@@ -101,7 +100,6 @@ class Connect : AppCompatActivity() {
                 EXTRA_ADRESS = address
 
                 val intent = Intent(this, MainActivity::class.java)
-                //intent.putExtra(EXTRA_ADRESS, address)
                 startActivity(intent)
             }
 
