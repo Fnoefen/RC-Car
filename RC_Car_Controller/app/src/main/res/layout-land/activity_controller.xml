@@ -135,29 +135,34 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/angleLandscape"
-        android:layout_width="85dp"
+        android:id="@+id/angle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/angle"
         android:textColor="@color/mGreen"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@id/textBox"
         app:layout_constraintBottom_toBottomOf="@id/textBox"
         app:layout_constraintLeft_toLeftOf="@id/textBox"
         android:layout_marginHorizontal="15dp"
         android:elevation="20dp"
-        />
+        android:drawableLeft="@drawable/ic_baseline_360_24"
+        android:drawablePadding="5dp"/>
 
     <TextView
-        android:id="@+id/speedLandscape"
-        android:layout_width="85dp"
+        android:id="@+id/speed"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:text="@string/speed"
         android:textColor="@color/mGreen"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@id/textBox"
         app:layout_constraintBottom_toBottomOf="@id/textBox"
         app:layout_constraintRight_toRightOf="@id/textBox"
         android:layout_marginHorizontal="15dp"
-        android:elevation="20dp" />
+        android:elevation="20dp"
+        android:drawableLeft="@drawable/ic_baseline_speed_24"
+        android:drawablePadding="5dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/design"
